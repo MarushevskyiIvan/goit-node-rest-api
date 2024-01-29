@@ -4,7 +4,7 @@ const getOneContact = require('./getOneContact')
 const deleteContact = require('./deleteContact')
 const createContact = require('./createContact')
 const updateContacts = require('./updateContacts')
-const updateFavorite = require('./updateFavorite')
+const updateStatusContact = require('./updateStatusContact')
 
 module.exports = {
 	getAllContacts: ctrlWrapper(getAllContacts),
@@ -12,5 +12,5 @@ module.exports = {
 	deleteContact: ctrlWrapper(deleteContact),
 	createContact: ctrlWrapper(createContact),
 	updateContacts: ctrlWrapper(updateContacts),
-	updateFavorite: ctrlWrapper(updateFavorite),
+	updateStatusContact: ctrlWrapper(updateStatusContact),
 }

@@ -1,7 +1,11 @@
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
-require('dotenv').config()
+
+const path = require('path')
+const configPath = path.join(__dirname, '.', 'config', '.env')
+
+require('dotenv').config({ path: configPath })
 require('colors')
 
 const mongoose = require('mongoose')

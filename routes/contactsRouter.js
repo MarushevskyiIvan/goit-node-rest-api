@@ -6,7 +6,7 @@ const {
 	createContact,
 	updateContacts,
 	deleteContact,
-	updateFavorite,
+	updateStatusContact,
 } = require('../controllers/contacts')
 
 const {
@@ -37,7 +37,7 @@ contactsRouter.patch(
 	'/:id/favorite',
 	isValidId,
 	validateBody(updateFavoriteSchema),
-	updateFavorite
+	updateStatusContact
 )
 
 contactsRouter.delete('/:id', isValidId, deleteContact)
