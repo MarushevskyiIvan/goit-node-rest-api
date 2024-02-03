@@ -2,9 +2,18 @@ const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
 
-const contactsRouter = require('./routes/contactsRouter.js')
+const path = require('path')
+const configPath = path.join(__dirname, '.', 'config', '.env')
 
+require('dotenv').config({ path: configPath })
+require('colors')
+
+const mongoose = require('mongoose')
+mongoose.set('strictQuery', true)
+
+const contactsRouter = require('./routes/contactsRouter.js')
 const app = express()
+const { DB_HOST, PORT } = process.env
 
 app.use(morgan('tiny'))
 app.use(cors())
@@ -21,6 +30,14 @@ app.use((err, req, res, next) => {
 	res.status(status).json({ message })
 })
 
-app.listen(3000, () => {
-	console.log('Server is running. Use our API on port: 3000')
-})
+mongoose
+	.connect(DB_HOST)
+	.then(
+		app.listen(PORT, () => {
+			console.log('Database connection successful'.green.italic.bold)
+		})
+	)
+	.catch(error => {
+		console.log(`Database connection error ${error.message}`.red.italic.bold)
+		process.exit(1)
+	})
