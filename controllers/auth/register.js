@@ -2,7 +2,7 @@ const User = require('../../models/user')
 const { HttpError } = require('../../helpers')
 const bcryptjs = require('bcryptjs')
 
-const registration = async (req, res) => {
+const register = async (req, res) => {
 	const { name, email, password } = req.body
 	const user = await User.findOne({ email })
 
@@ -24,4 +24,4 @@ const registration = async (req, res) => {
 	})
 }
 
-module.exports = registration
+module.exports = register

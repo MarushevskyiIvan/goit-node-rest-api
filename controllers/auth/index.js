@@ -1,11 +1,13 @@
 const { ctrlWrapper } = require('../../helpers')
 
-const registration = require('./register')
+const register = require('./register')
 const login = require('./login')
 const logout = require('./logout')
+const current = require('./current')
 
 module.exports = {
-	registration: ctrlWrapper(registration),
+	register: ctrlWrapper(register),
 	login: ctrlWrapper(login),
 	logout: ctrlWrapper(logout),
+	current: ctrlWrapper(current),
 }

@@ -23,6 +23,7 @@ const userSchema = new Schema(
 			default: null,
 		},
 	},
+
 	{ versionKey: false, timestamps: true }
 )
 
