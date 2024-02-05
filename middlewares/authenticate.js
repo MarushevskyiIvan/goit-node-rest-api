@@ -2,21 +2,25 @@ const { HttpError } = require('../helpers')
 const jwt = require('jsonwebtoken')
 const User = require('../models/user')
 
-const { SECRET_KEY } = process.env
+const path = require('path')
+const configPath = path.join(__dirname, '..', 'config', '.env')
+require('dotenv').config({ path: configPath })
 
-console.log(SECRET_KEY)
+const { SECRET_KEY } = process.env
 
 const authenticate = async (req, res, next) => {
 	const { authorization = '' } = req.headers
 	const [bearer, token] = authorization.split(' ')
 
-	if (bearer !== 'Bearer') {
-		next(HttpError(401, 'Not authorized'))
-	}
-
 	try {
+		if (bearer !== 'Bearer') {
+			next(HttpError(401, 'Not authorized'))
+		}
+
 		const { id } = jwt.verify(token, SECRET_KEY)
+
 		const user = await User.findById(id)
+
 		if (!user || !user.token || user.token !== token) {
 			next(HttpError(401, 'Not authorized'))
 		}
