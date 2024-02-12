@@ -2,10 +2,6 @@ const { HttpError } = require('../helpers')
 const jwt = require('jsonwebtoken')
 const User = require('../models/user')
 
-const path = require('path')
-const configPath = path.join(__dirname, '..', 'config', '.env')
-require('dotenv').config({ path: configPath })
-
 const { SECRET_KEY } = process.env
 
 const authenticate = async (req, res, next) => {

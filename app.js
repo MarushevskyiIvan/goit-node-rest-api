@@ -1,14 +1,14 @@
+const path = require('path')
+const configPath = path.join(__dirname, '.', 'config', '.env')
+
+require('dotenv').config({ path: configPath })
+
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
 require('colors')
 
 const contactsRouter = require('./routes/contactsRouter.js')
-
-const path = require('path')
-const configPath = path.join(__dirname, '.', 'config', '.env')
-
-require('dotenv').config({ path: configPath })
 
 const mongoose = require('mongoose')
 const authRouter = require('./routes/authRouter.js')
