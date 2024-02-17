@@ -21,7 +21,6 @@ const { isValidId } = require('../middlewares')
 const contactsRouter = express.Router()
 
 contactsRouter.get('/', authenticate, getAllContacts)
-
 contactsRouter.get('/:id', authenticate, isValidId, getOneContact)
 
 contactsRouter.post(
