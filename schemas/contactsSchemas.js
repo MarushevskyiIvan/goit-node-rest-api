@@ -29,10 +29,15 @@ const userLoginSchema = Joi.object({
 	password: Joi.string().min(6).required(),
 })
 
+const emailVerifySchema = Joi.object({
+	email: Joi.string().required(),
+})
+
 module.exports = {
 	createContactSchema,
 	updateContactSchema,
 	updateFavoriteSchema,
 	userRegisterSchema,
 	userLoginSchema,
+	emailVerifySchema,
 }
