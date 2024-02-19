@@ -15,7 +15,7 @@ const {
 	userRegisterSchema,
 	userLoginSchema,
 	emailVerifySchema,
-} = require('../schemas/contactsSchemas')
+} = require('../schemas')
 
 const authRouter = express.Router()
 

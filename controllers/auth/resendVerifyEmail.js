@@ -1,5 +1,6 @@
-const { HttpError, sendEmail } = require('../../helpers')
+const { HttpError } = require('../../helpers')
 const User = require('../../models/user')
+const sendEmail = require('../../services/email/sendEmail')
 const { BASE_URL } = process.env
 
 const resendVerifyEmail = async (req, res) => {
@@ -8,11 +9,11 @@ const resendVerifyEmail = async (req, res) => {
 	const user = await User.findOne({ email })
 
 	if (!user) {
-		throw HttpError(401, 'Email not found')
+		throw HttpError(400, 'Missing required field email')
 	}
 
 	if (user.verify) {
-		throw HttpError(401, 'Email already verify')
+		throw HttpError(400, 'Verification has already been passed')
 	}
 
 	const verifyEmail = {
@@ -22,7 +23,7 @@ const resendVerifyEmail = async (req, res) => {
 	}
 	await sendEmail(verifyEmail)
 
-	res.json({ message: 'Verify email send success' })
+	res.json({ message: 'Verification email sent' })
 }
 
 module.exports = resendVerifyEmail
