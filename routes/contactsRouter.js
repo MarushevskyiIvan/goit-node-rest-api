@@ -13,7 +13,7 @@ const {
 	createContactSchema,
 	updateContactSchema,
 	updateFavoriteSchema,
-} = require('../schemas/contactsSchemas')
+} = require('../schemas')
 
 const { validateBody, authenticate } = require('../middlewares')
 const { isValidId } = require('../middlewares')

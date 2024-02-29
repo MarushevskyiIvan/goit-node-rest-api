@@ -1,7 +1,11 @@
 const User = require('../../models/user')
-const { HttpError } = require('../../helpers')
 const bcryptjs = require('bcryptjs')
 const gravatar = require('gravatar')
+const { nanoid } = require('nanoid')
+const { HttpError } = require('../../helpers')
+const sendEmail = require('../../services/email/sendEmail')
+
+const { BASE_URL } = process.env
 
 const register = async (req, res) => {
 	const { email, password } = req.body
@@ -10,6 +14,9 @@ const register = async (req, res) => {
 	if (user) {
 		throw HttpError(409, `Email ${email} is already in use`)
 	}
+
+	const verificationToken = nanoid()
+
 	const hashPassword = bcryptjs.hashSync(password, bcryptjs.genSaltSync(10))
 
 	const avatarURL = gravatar.url(email)
@@ -18,7 +25,15 @@ const register = async (req, res) => {
 		...req.body,
 		password: hashPassword,
 		avatarURL,
+		verificationToken,
 	})
+
+	const verifyEmail = {
+		to: email,
+		subject: 'Verify email',
+		html: `<a target="_blank" href="${BASE_URL}/auth/verify/${verificationToken}">Click verify email</a>`,
+	}
+	await sendEmail(verifyEmail)
 
 	res.status(201).json({
 		user: {

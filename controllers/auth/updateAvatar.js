@@ -14,6 +14,7 @@ const updateAvatar = async (req, res) => {
 
 	const resultUpload = path.join(avatarsDir, filename)
 	const jimpImg = await Jimp.read(tmpUpload)
+
 	await jimpImg
 		.autocrop()
 		.cover(250, 250, Jimp.HORIZONTAL_ALIGN_CENTER || Jimp.VERTICAL_ALIGN_MIDDLE)

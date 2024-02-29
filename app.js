@@ -1,6 +1,5 @@
 const path = require('path')
 const configPath = path.join(__dirname, '.', 'config', '.env')
-
 require('dotenv').config({ path: configPath })
 
 const express = require('express')
